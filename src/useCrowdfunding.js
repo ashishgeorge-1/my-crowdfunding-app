@@ -11,12 +11,12 @@ const useCrowdfunding = () => {
 
   useEffect(() => {
     const loadProvider = async () => {
-      if (window.ethereum) {
+      if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
         try {
-          // Request account access
+          // Request MetaMask account access
           await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-          // Initialize the provider and signer
+          // Initialize the MetaMask provider and signer
           const _provider = new ethers.BrowserProvider(window.ethereum);
           setProvider(_provider);
 
@@ -28,10 +28,10 @@ const useCrowdfunding = () => {
           setCrowdfundingContract(_crowdfundingContract);
 
         } catch (error) {
-          console.error("Error requesting account access:", error);
+          console.error("Error requesting MetaMask account access:", error);
         }
       } else {
-        console.error("MetaMask not detected");
+        console.error("MetaMask is not detected. Please install MetaMask.");
       }
     };
 
