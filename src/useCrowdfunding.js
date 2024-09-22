@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import CrowdfundingABI from './abi/Crowdfunding.json';
 
-const crowdfundingAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+const crowdfundingAddress = '0x5e1Bd3326bd6c327be8EA2A43F85CC503CA1B1C2';
 
 const useCrowdfunding = () => {
   const [provider, setProvider] = useState(null);

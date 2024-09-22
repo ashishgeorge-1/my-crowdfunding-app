@@ -21,19 +21,13 @@ const CreateCampaign = ({ onCampaignCreated, campaigns }) => {
         ethers.parseUnits(goal, 'ether')
       );
       await transaction.wait();
-      
+
       setLoading(false);
-      
-      // Create new campaign object
+
       const newCampaign = { description, goal };
-      
-      // Notify parent component
       onCampaignCreated(newCampaign);
-      
-      // Clear the input fields
       setDescription('');
       setGoal('');
-      
       alert('Campaign Created!');
     } catch (error) {
       console.error('Error creating campaign:', error);
@@ -64,8 +58,6 @@ const CreateCampaign = ({ onCampaignCreated, campaigns }) => {
           onClick={createCampaign}
           style={styles.button}
           disabled={loading}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = '#ff7f50')}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = '#ff5851')}
         >
           {loading ? 'Creating...' : 'Create Campaign'}
         </button>
@@ -88,47 +80,42 @@ const CreateCampaign = ({ onCampaignCreated, campaigns }) => {
   );
 };
 
-
 const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #87CEFA 0%, #FAEBD7 100%)',
-    padding: '20px',
+    width: '100%',
   },
   card: {
     background: 'linear-gradient(135deg, #ADD8E6 0%, #8fd3f4 100%)',
-    padding: '50px 30px',
-    borderRadius: '15px',
+    padding: '30px 20px',
+    borderRadius: '10px',
     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
     textAlign: 'center',
-    width: '350px',
-    maxWidth: '100%',
-    transition: 'background 0.3s ease-in-out',
-    marginBottom: '30px',
+    width: '100%',
+    maxWidth: '350px',
+    marginBottom: '20px',
   },
   title: {
-    fontSize: '26px',
-    marginBottom: '25px',
+    fontSize: '24px',
+    marginBottom: '20px',
     fontWeight: 'bold',
     color: '#333',
   },
   input: {
-    width: '100%',
-    padding: '12px',
-    marginBottom: '20px',
+    width: '90%',
+    padding: '10px',
+    marginBottom: '15px',
     borderRadius: '8px',
     border: '1px solid #ddd',
-    fontSize: '16px',
+    fontSize: '14px',
     outline: 'none',
     boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.05)',
   },
   button: {
-    width: '100%',
-    padding: '15px',
+    width: '60%',
+    padding: '12px',
     backgroundColor: '#ff5851',
     color: 'white',
     border: 'none',
@@ -139,7 +126,8 @@ const styles = {
   },
   campaignList: {
     textAlign: 'left',
-    width: '350px',
+    width: '100%',
+    maxWidth: '350px',
   },
   subtitle: {
     fontSize: '20px',

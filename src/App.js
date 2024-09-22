@@ -38,20 +38,57 @@ const App = () => {
     localStorage.setItem('campaigns', JSON.stringify(updatedCampaigns));
   };
 
+  // Updated styles from the new code
   const appStyles = {
     fontFamily: 'Poppins, sans-serif',
     padding: '20px',
+    backgroundColor: '#f0f8ff',
+    minHeight: '100vh',
+    position: 'relative',
+  };
+
+  const contentStyles = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    maxWidth: '1200px',
+    margin: '0 auto',
+  };
+
+  const columnStyles = {
+    flex: 1,
+    padding: '20px',
+  };
+
+  const titleStyles = {
+    fontWeight: '900',
+    color: '#333',
+    marginBottom: '20px',
     textAlign: 'center',
-    backgroundColor: '#f9f9f9',
+  };
+
+  const logoutButtonStyles = {
+    position: 'absolute',
+    top: '20px',
+    right: '20px',
+    padding: '10px 20px',
+    backgroundColor: '#ff5851',
+    color: 'white',
+    border: 'none',
+    borderRadius: '5px',
+    fontSize: '16px',
+    cursor: 'pointer',
   };
 
   const loginFormStyles = {
-    maxWidth: '400px',
+    width: '400px',
     margin: '0 auto',
     padding: '20px',
     backgroundColor: '#fff',
     borderRadius: '8px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   };
 
   const inputStyles = {
@@ -73,17 +110,23 @@ const App = () => {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
-    width: '100%',
+    width: '30%',
+    marginTop: '10px',
     fontFamily: 'Poppins, sans-serif',
-  };
-
-  const titleStyles = {
-    fontWeight: '600',
-    color: '#333',
   };
 
   return (
     <div style={appStyles}>
+      {isLoggedIn && (
+        <button style={logoutButtonStyles} onClick={() => {
+          setIsLoggedIn(false);
+          setEmail('');
+          setPassword('');
+          alert('Logged out successfully');
+        }}>
+          Logout
+        </button>
+      )}
       {!isLoggedIn ? (
         <div style={loginFormStyles}>
           <h2 style={titleStyles}>Login</h2>
@@ -107,17 +150,23 @@ const App = () => {
         </div>
       ) : (
         <div>
-          <h1 style={{ ...titleStyles, fontSize: '30px' }}>
-            Welcome {isAdmin ? 'Admin' : 'User'}
+          <h1 style={{ ...titleStyles, fontSize: '30px', fontWeight: '1000' }}>
+            Welcome {isAdmin ? 'Admin!' : 'User'}
           </h1>
-          {isAdmin && (
-            <div>
-              <h2 style={titleStyles}>Create a Campaign</h2>
-              <CreateCampaign onCampaignCreated={handleCampaignCreated} campaigns={campaigns} />
+          <div style={contentStyles}>
+            <div style={columnStyles}>
+              {isAdmin && (
+                <div>
+                  <h2 style={titleStyles}>Create a Campaign</h2>
+                  <CreateCampaign onCampaignCreated={handleCampaignCreated} campaigns={campaigns} />
+                </div>
+              )}
             </div>
-          )}
-          <h2 style={titleStyles}>Available Campaigns</h2>
-          <CampaignGrid campaigns={campaigns} />
+            <div style={columnStyles}>
+              <h2 style={{ ...titleStyles, marginTop: '0' }}>Available Campaigns</h2>
+              <CampaignGrid campaigns={campaigns} />
+            </div>
+          </div>
         </div>
       )}
     </div>
